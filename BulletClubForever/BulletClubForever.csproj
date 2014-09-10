@@ -60,12 +60,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ExternalScripts\phaser.js" />
     <Content Include="ExternalScripts\phaser.min.js" />
+    <Content Include="ExternalScripts\qunit-1.15.0.js" />
+    <Content Include="GameScripts\Main.js" />
+    <Content Include="GameScripts\LevelMap.js" />
     <Content Include="index.html" />
     <Content Include="Sprites\grass.png" />
     <Content Include="Sprites\mud.png" />
     <Content Include="Sprites\player.png" />
+    <Content Include="tests.html" />
+    <Content Include="Tests\map-tests.js" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

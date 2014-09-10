@@ -2,21 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Bullet Club Forever</title>
-    <script src="ExternalScripts/phaser.min.js"></script>
+    <script src="ExternalScripts/phaser.js"></script>
+    <script src="GameScripts/main.js"></script>
 </head>
 <body>
-    <script type="text/javascript">
-        window.onload = function() {
-            var game = new Phaser.Game(800, 500, Phaser.AUTO, '', { preload: preload, create: create });
-
-            function preload() {
-                game.load.image('player', 'Sprites/player.png');
-            }
-
-            function create() {
-                game.add.sprite(0, 400, 'player');
-            }
-        }
-    </script>
+    <div id="game"></div>
 </body>
 </html>
