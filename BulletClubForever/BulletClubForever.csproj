@@ -84,7 +84,7 @@
     <Content Include="Sprites\bottomGrass.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sprites\mud.png">
+    <Content Include="Sprites\mud2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sprites\player.png">
