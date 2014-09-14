@@ -9,7 +9,7 @@
         var x = 100;
         var y = 20;
         var levelMap = new LevelMap(x, y);
-        levelMap.init();
+        levelMap.create();
 
         function DisplayMap() {
             var div = document.getElementById("map");
@@ -29,7 +29,7 @@
         };
 
         function UpdateMap() {
-            levelMap.makeNewPieceOfMap();
+            levelMap.addNewPieceOfMap();
             DisplayMap();
         };
     </script>

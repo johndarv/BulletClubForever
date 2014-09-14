@@ -6,7 +6,7 @@
     assert.ok(levelMap.map !== undefined, "map property is initially not undefined.");
     assert.ok(levelMap.map.length === 0, "map property is initially empty.");
 
-    levelMap.init();
+    levelMap.create();
 
     assert.ok(levelMap.map.length === x, "x axis is correct length.");
     assert.ok(levelMap.map[0].length === y, "y axis is correct length.");

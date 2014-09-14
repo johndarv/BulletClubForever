@@ -5,7 +5,7 @@
 }
 
 LevelMap.prototype = {
-    init: function () {
+    create: function () {
         for (var i = 0; i < this.x; i++) {
             // First, create the array within the array
             this.map[i] = [];
@@ -29,7 +29,7 @@ LevelMap.prototype = {
         this.map[0][this.y - 1] = "G";
     },
 
-    makeNewPieceOfMap: function () {
+    addNewPieceOfMap: function () {
         this.map[this.x] = [];
         this.makePieceOfMap(this.x);
         this.x++;
@@ -46,9 +46,15 @@ LevelMap.prototype = {
         
         this.map[xAxisPos][this.y - 1] = groundPiece;
 
-        // Now cycle through all but the ground tile and randomly create platforms
+        // Now cycle through all but the ground tiles and randomly create platforms
         for (var i = 0; i < this.y - 1; i++) {
             var hasPlatform = createRandomBool(20);
+
+            // Don't ever create tiles for the first two (right at the top of the map)
+            if (i < 2) {
+                hasPlatform = false;
+            }
+
             var newPiece = ".";
 
             if (hasPlatform) {
