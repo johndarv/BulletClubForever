@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Raw Level Map</title>
+    <script src="GameScripts/LevelMap.js"></script>
+</head>
+<body onload="DisplayMap()">
+    <script>
+        var x = 100;
+        var y = 20;
+        var levelMap = new LevelMap(x, y);
+        levelMap.init();
+
+        function DisplayMap() {
+            var div = document.getElementById("map");
+            var text = "<p>";
+
+            for (var i = 0; i < levelMap.y; i++) {
+                for (var j = 0; j < levelMap.x; j++) {
+                    text += levelMap.map[j][i];
+                }
+
+                text = text.substring(0, text.length - 1);
+                text += "</br>";
+            }
+
+            text += "</p>";
+            div.innerHTML = text;
+        };
+
+        function UpdateMap() {
+            levelMap.makeNewPieceOfMap();
+            DisplayMap();
+        };
+    </script>
+
+    <div id="map" style="font-family:Courier New, Courier, monospace"></div>
+
+    <br />
+
+    <button onclick="UpdateMap()" name="UpdateMap">Update Map</button>
+</body>
+</html>
