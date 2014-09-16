@@ -2,6 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Bullet Club Forever</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+
     <script src="ExternalScripts/phaser.js"></script>
     <script src="GameScripts/Main.js"></script>
     <script src="GameScripts/LevelMap.js"></script>
@@ -11,9 +13,32 @@
         var levelMap = new LevelMap(100, 20);
     </script>
 
-    <h1>Bullet Club Forever</h1>
+    <h1>bullet club forever</h1>
+    <p>A game written in JavaScript using the <a href="http://phaser.io/">Phaser</a> framework.</p>
     <div id="game"></div>
     <br />
     <p>Controls: None</p>
+    <p>
+        <span class="date">16/09/2014</span><br />
+        Grass foreground sprite that overlapped the player sprite's feet has gone :'(  Next up, controls! Or more probably, trying
+        to organise everything into classes a bit more since I got JS intellisense in VS Express 
+        <a href="http://social.msdn.microsoft.com/Forums/en-US/bc290047-b886-49e5-a7f3-9edd928eb061/javascript-intellisense-in-vs-express-for-web-2013-only-partially-working?forum=visualstudiogeneral">almost</a> 
+        <a href="http://stackoverflow.com/questions/25855938/javascript-intellisense-in-visual-studio-only-partially-working">working</a>. But then, definitely controls...
+    </p>
+    <p>
+        <span class="date">15/09/2014</span><br />
+        I'm going to start trying to document my progress here in the hope that this will somehow mean that I don't abandon this
+        after two weeks like I have all my other games I've tried to make. So far I've got a randomised level map which is infinitely less clever
+        than Spelunky's but I guess inifinitely less clever than perfection isn't that bad. The map is created by
+        <a href="https://github.com/johndarv/BulletClubForever/blob/master/BulletClubForever/GameScripts/LevelMap.js">this</a>
+        class which also has the capability of adding to itself as the player progresses through the level. I mean to make this
+        a bit clevererer by having the array recycle itself instead of just getting bigger and bigger. The game does have the word
+        forever in the title after all.</p>
+    <p>
+        Phaser draws sprites/groups in the order that they're added to the game, so I managed to make the grass appear in front
+        of the player, but I think I'm going to abaondon clever draw orders for now and concentrate on getting the basics in place.
+        In case you hadn't noticed, it's not a game yet rather than a highly complex way of drawing pictures on a web page
+        that took ages.
+    </p>
 </body>
 </html>

@@ -75,6 +75,7 @@
     <Content Include="GameScripts\LevelMap.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="GameScripts\Platform.js" />
     <Content Include="index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -93,6 +94,7 @@
     <Content Include="Sprites\topGrass.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="style.css" />
     <Content Include="tests.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
