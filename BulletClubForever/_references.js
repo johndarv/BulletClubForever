@@ -1,3 +1,4 @@
-﻿/// <reference path="C:\Users\John\Documents\My Web Sites\BulletClubForever\BulletClubForever\BulletClubForever\ExternalScripts/phaser.js" />
-/// <reference path="C:\Users\John\Documents\My Web Sites\BulletClubForever\BulletClubForever\BulletClubForever\GameScripts/LevelMap.js" />
-/// <reference path="C:\Users\John\Documents\My Web Sites\BulletClubForever\BulletClubForever\BulletClubForever\GameScripts/Platforms.js" />
+﻿/// <reference path="ExternalScripts/phaser.js" />
+/// <reference path="GameScripts/LevelMap.js" />
+/// <reference path="GameScripts/Platforms.js" />
+/// <reference path="GameScripts/Player.js" />

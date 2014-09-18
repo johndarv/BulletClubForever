@@ -1,15 +1,15 @@
 ﻿var spriteWidth = 25;
 var spriteHeight = 25;
 
-var game = new Phaser.Game(800, 500, Phaser.AUTO, 'game', { preload: preload, create: create });
+var game = new Phaser.Game(800, 500, Phaser.AUTO, 'game', { preload: preload, create: create, update: update });
 
 var levelMap = new LevelMap(100, 20);
 var platforms = new Platforms(game, levelMap);
-var player = null;
+var player = new Player(game);
 
 function preload() {
     platforms.preload();
-    game.load.image('player', 'Sprites/player.png');
+    player.preload();
 }
 
 function create() {
@@ -19,10 +19,11 @@ function create() {
     levelMap.init();
 
     platforms.create();
-
-    player = game.add.sprite(0, 450, 'player');
+    player.create();
 }
 
 function update() {
+    game.physics.arcade.collide(player.playerSprite, platforms.group);
 
+    player.update();
 }

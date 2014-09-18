@@ -1,5 +1,6 @@
 ﻿Platforms = function (game, levelMap) {
     /// <param name="game" type="Phaser.Game"></param>
+    /// <param name="levelMap" type="LevelMap"></param>
     this.game = game;
     this.levelMap = levelMap;
     this.group = null;
@@ -19,12 +20,12 @@ Platforms.prototype.create = function () {
             var currentTile = this.levelMap.map[j][i];
             if (currentTile === "P" || currentTile === "G") {
                 // draw the mud
-                this.group.create(j * spriteWidth, i * spriteHeight, 'platform');
+                var newPlatform = this.group.create(j * spriteWidth, i * spriteHeight, 'platform');
+                newPlatform.body.immovable = true;
             }
         }
     }
 }
 
 Platforms.prototype.update = function () {
-
 }
