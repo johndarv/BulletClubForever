@@ -1,6 +1,30 @@
-﻿/// <reference path="../ExternalScripts/Phaser.js" />
-
-Platforms = function (game) {
+﻿Platforms = function (game, levelMap) {
     /// <param name="game" type="Phaser.Game"></param>
-    
+    this.game = game;
+    this.levelMap = levelMap;
+    this.group = null;
+}
+
+Platforms.prototype.preload = function () {
+    this.game.load.image('platform', 'Sprites/platform.png');
+}
+
+Platforms.prototype.create = function () {
+    this.group = this.game.add.group();
+    this.group.enableBody = true;
+
+    // for each tile on the level map, if it's a platform, create the sprites
+    for (var i = 0; i < this.levelMap.y; i++) {
+        for (var j = 0; j < this.levelMap.x; j++) {
+            var currentTile = this.levelMap.map[j][i];
+            if (currentTile === "P" || currentTile === "G") {
+                // draw the mud
+                this.group.create(j * spriteWidth, i * spriteHeight, 'platform');
+            }
+        }
+    }
+}
+
+Platforms.prototype.update = function () {
+
 }

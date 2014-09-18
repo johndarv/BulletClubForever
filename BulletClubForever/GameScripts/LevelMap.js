@@ -5,7 +5,7 @@
 }
 
 LevelMap.prototype = {
-    create: function () {
+    init: function () {
         for (var i = 0; i < this.x; i++) {
             // First, create the array within the array
             this.map[i] = [];
