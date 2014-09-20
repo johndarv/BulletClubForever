@@ -23,7 +23,5 @@ function create() {
 }
 
 function update() {
-    game.physics.arcade.collide(player.playerSprite, platforms.group);
-
-    player.update();
+    player.update(platforms);
 }
