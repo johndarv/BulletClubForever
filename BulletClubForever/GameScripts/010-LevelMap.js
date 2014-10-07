@@ -73,4 +73,4 @@ function createRandom(n) {
 function createRandomBool(n) {
     var r = createRandom(n);
     return r === 1;
-}
+};

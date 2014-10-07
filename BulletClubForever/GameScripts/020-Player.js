@@ -74,4 +74,4 @@ Player.prototype.update = function (platforms) {
     if (!this.keyboard.isDown(Phaser.Keyboard.X)) {
         this.jumpWasReleaseSinceLastPressed = true;
     }
-}
+};

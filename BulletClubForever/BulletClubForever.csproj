@@ -57,6 +57,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="debug.html" />
     <Content Include="ExternalScripts\phaser.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -66,16 +67,19 @@
     <Content Include="ExternalScripts\qunit-1.15.0.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="GameScripts\Main.js">
+    <Content Include="GameScripts\040-Main.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="GameScripts\LevelMap.js">
+    <Content Include="GameScripts\010-LevelMap.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="GameScripts\Platforms.js">
+    <Content Include="GameScripts\030-Platforms.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="GameScripts\Player.js">
+    <Content Include="GameScripts\020-Player.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GameScripts\bcf.min.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="index.html">
@@ -102,6 +106,7 @@
     <Content Include="Tests\LevelMapTests.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Tools\jsmin.exe" />
     <None Include="_references.js" />
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +141,9 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>type "$(ProjectDir)GameScripts\*.js" | "$(ProjectDir)Tools\jsmin.exe" &gt; "$(ProjectDir)GameScripts\bcf.min.js"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

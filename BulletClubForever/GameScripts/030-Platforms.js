@@ -28,4 +28,4 @@ Platforms.prototype.create = function () {
 }
 
 Platforms.prototype.update = function () {
-}
+};
