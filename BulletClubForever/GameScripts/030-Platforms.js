@@ -4,11 +4,11 @@
     this.game = game;
     this.levelMap = levelMap;
     this.group = null;
-}
+};
 
 Platforms.prototype.preload = function () {
     this.game.load.image('platform', 'Sprites/platform.png');
-}
+};
 
 Platforms.prototype.create = function () {
     this.group = this.game.add.group();
@@ -25,7 +25,7 @@ Platforms.prototype.create = function () {
             }
         }
     }
-}
+};
 
 Platforms.prototype.update = function () {
 };

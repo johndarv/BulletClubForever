@@ -19,7 +19,7 @@
 Player.prototype.preload = function () {
     this.game.load.image('player', 'Sprites/player.png');
     this.game.load.image('playerFeet', 'Sprites/player-feet.png');
-}
+};
 
 Player.prototype.create = function () {
     this.feet = this.game.add.sprite(0, 440, 'playerFeet');
@@ -34,7 +34,7 @@ Player.prototype.create = function () {
 
     this.keyboard = this.game.input.keyboard;
     this.cursorKeys = this.keyboard.createCursorKeys();
-}
+};
 
 Player.prototype.update = function (platforms) {
     /// <param name="platforms" type="Platforms"></param>
