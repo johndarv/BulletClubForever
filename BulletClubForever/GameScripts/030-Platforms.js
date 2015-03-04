@@ -22,10 +22,25 @@ Platforms.prototype.create = function () {
                 // draw the mud
                 var newPlatform = this.group.create(j * spriteWidth, i * spriteHeight, 'platform');
                 newPlatform.body.immovable = true;
+                newPlatform.body.checkCollision = { up: true, down: false, left: false, right: false };
             }
         }
     }
 };
 
-Platforms.prototype.update = function () {
+Platforms.prototype.update = function (player) {
+    /// <param name="player" type="Player"></param>
+
+    var platformsXSpeed = null;
+
+    if (player.scrollingBackgroundTrigger == true) {
+        platformsXSpeed = player.playerXSpeed * -1;
+    }
+    else {
+        platformsXSpeed = 0;
+    }
+
+    this.group.forEach(function (child) {
+        child.body.velocity.x = (platformsXSpeed);
+    });
 };

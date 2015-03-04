@@ -1,7 +1,7 @@
 ﻿var spriteWidth = 25;
 var spriteHeight = 25;
 
-var game = new Phaser.Game(800, 500, Phaser.AUTO, 'game', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(800, 500, Phaser.AUTO, 'game', { preload: preload, create: create, update: update, render: render });
 
 var levelMap = new LevelMap(100, 20);
 var platforms = new Platforms(game, levelMap);
@@ -24,4 +24,9 @@ function create() {
 
 function update() {
     player.update(platforms);
+    platforms.update(player);
+}
+
+function render() {
+    player.render();
 }

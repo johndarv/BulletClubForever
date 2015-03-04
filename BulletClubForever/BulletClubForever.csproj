@@ -91,9 +91,6 @@
     <Content Include="Sprites\platform.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sprites\player-feet.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Sprites\player.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
