@@ -19,7 +19,7 @@ Platforms.prototype.create = function () {
         for (var j = 0; j < this.levelMap.x; j++) {
             var currentTile = this.levelMap.map[j][i];
             if (currentTile === "P" || currentTile === "G") {
-                // draw the mud
+                // create the platforms
                 var newPlatform = this.group.create(j * spriteWidth, i * spriteHeight, 'platform');
                 newPlatform.body.immovable = true;
                 newPlatform.body.checkCollision = { up: true, down: false, left: false, right: false };
@@ -30,6 +30,16 @@ Platforms.prototype.create = function () {
 
 Platforms.prototype.update = function (player) {
     /// <param name="player" type="Player"></param>
+
+    // TODO: Here we need to destroy platforms that have gone too far off the left of the screen
+    // and create new platforms according to looping the array. So:
+    // * If offset of platforms has reached multiple of 25:
+    //   * Destroy the sprites that correspond to the first column of the level map
+    //   * Replace the first column of the level map with a new column
+    //   * Create sprites for this new column but positioned at the far right of all the other platform sprites (using clever maths)
+
+    // TODO: All this code below can go. The moving of every "active object" according to the player's
+    // speed should be done separately to the individual objects. It should be its own thing.
 
     var platformsXSpeed = null;
 

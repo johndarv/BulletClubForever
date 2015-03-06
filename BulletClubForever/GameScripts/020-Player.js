@@ -41,6 +41,7 @@ Player.prototype.update = function (platforms) {
     var self = this;
 
     // Collisions section
+    // TODO: can just pass the group into the collide() method
     platforms.group.forEach(function (platform) {
         self.game.physics.arcade.collide(self.playerSprite, platform);
     });

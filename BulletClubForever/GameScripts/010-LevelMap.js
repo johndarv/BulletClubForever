@@ -15,7 +15,7 @@ LevelMap.prototype.init = function () {
     }
 
     this.initPlatforms();
-    this.overrideFirstPlatform();
+    this.overrideFirstPlatform(); // The platform underneath where the player first appears needs to be a piece of ground
 };
 
 LevelMap.prototype.initPlatforms = function () {
