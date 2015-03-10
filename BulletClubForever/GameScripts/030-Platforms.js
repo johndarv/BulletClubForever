@@ -4,6 +4,8 @@
     this.game = game;
     this.levelMap = levelMap;
     this.group = null;
+
+    this.scrollingTracker = 0;
 };
 
 Platforms.prototype.preload = function () {
@@ -28,9 +30,7 @@ Platforms.prototype.create = function () {
     }
 };
 
-Platforms.prototype.update = function (player) {
-    /// <param name="player" type="Player"></param>
-
+Platforms.prototype.update = function () {
     // TODO: Here we need to destroy platforms that have gone too far off the left of the screen
     // and create new platforms according to looping the array. So:
     // * If offset of platforms has reached multiple of 25:
@@ -38,19 +38,14 @@ Platforms.prototype.update = function (player) {
     //   * Replace the first column of the level map with a new column
     //   * Create sprites for this new column but positioned at the far right of all the other platform sprites (using clever maths)
 
-    // TODO: All this code below can go. The moving of every "active object" according to the player's
-    // speed should be done separately to the individual objects. It should be its own thing.
+    if (this.scrollingTracker > 25) {
+        // then we've scrolled a whole 1 platform, so can delete the platforms that can never be reached again
+        this.group.forEach(function (platform) {
+            if (platform.world.x <= -25) {
+                platform.kill();
+            }
+        });
 
-    var platformsXSpeed = null;
-
-    if (player.scrollingBackgroundTrigger == true) {
-        platformsXSpeed = player.playerXSpeed * -1;
+        this.scrollingTracker -= 25;
     }
-    else {
-        platformsXSpeed = 0;
-    }
-
-    this.group.forEach(function (child) {
-        child.body.velocity.x = (platformsXSpeed);
-    });
 };

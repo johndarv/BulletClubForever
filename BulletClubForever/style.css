@@ -5,8 +5,12 @@
     color:white
 }
 
-.date {
+h3 {
     color:#4585C5
+}
+
+h4 {
+    color:firebrick
 }
 
 /* unvisited link */

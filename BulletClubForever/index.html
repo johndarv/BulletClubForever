@@ -13,49 +13,22 @@
     <div id="game"></div>
     <br />
     <p>Controls: Left (Cursor Left), Right (Cursor Right), Jump (X)</p>
+    <h3>Stuff I've learnt whilst doing this</h3>
+    <h4 style="green">Combinging and Minifying</h4>
     <p>
-        <span class="date">11/10/2014</span><br />
         There are many options for minifying and concatting js files. Currently I'm using a tool called <a href="http://www.crockford.com/javascript/jsmin.html">jsmin</a>
         in combination with a build step in my VS project that does both steps. It looks like this: "type "$(ProjectDir)GameScripts\*.js" | "$(ProjectDir)Tools\jsmin.exe" > "$(ProjectDir)GameScripts\bcf.min.js"".
         It works well, as long as I have used semicolons properly across all files. I was recently made aware of
         <a href="www.">Google's Javascript standards</a> and the part about when to use semicolons and the difference
         between function declarations and function expressions explained why my concatted and minified file wasn't valid javascript at first.
-        So now I have a minified file that contains all my game code. The index.html page uses this, whereas the debug.html
-        page uses the originals for debugging purposes. There may well be a nicer way of doing this, but it will serve for now.
+        The index.html page uses this, whereas the debug.html page uses the originals for debugging purposes.
     </p>
+    <h4>Javascript Intellisense</h4>
     <p>
-        <span class="date">20/09/2014</span><br />
-        Movement has been vastly improved. Had to do some fiddling to get the player to only collide with the
-        platforms when landing on top of them, and not when colliding with them at the side or when jumping up through them, and it
-        seems to work quite nicely. Have seen a bug where you can fall through the ground, but only once :) so not worrying about
-        that for now. Next up I think I need to figure out how to do concatting and minifying of js files.
-    </p>
-    <p>
-        <span class="date">18/09/2014</span><br />
-        We have movement! And it is the worst platform game movement ever. This is going to need some work...
-    </p>
-    <p>
-        <span class="date">16/09/2014</span><br />
-        Grass foreground sprite that overlapped the player sprite's feet has gone :'(  Next up, controls! Or more probably, trying
-        to organise everything into classes a bit more since I got JS intellisense in VS Express
-        <a href="http://social.msdn.microsoft.com/Forums/en-US/bc290047-b886-49e5-a7f3-9edd928eb061/javascript-intellisense-in-vs-express-for-web-2013-only-partially-working?forum=visualstudiogeneral">almost</a>
-        <a href="http://stackoverflow.com/questions/25855938/javascript-intellisense-in-visual-studio-only-partially-working">working</a>. But then, definitely controls...
-    </p>
-    <p>
-        <span class="date">15/09/2014</span><br />
-        I'm going to start trying to document my progress here in the hope that this will somehow mean that I don't abandon this
-        like I almost certainly will. So far I've got a randomised level map which is infinitely less clever
-        than Spelunky's but I guess inifinitely less clever than perfection isn't that bad. The map is created by
-        <a href="https://github.com/johndarv/BulletClubForever/blob/master/BulletClubForever/GameScripts/LevelMap.js">this</a>
-        class which also has the capability of adding to itself as the player progresses through the level. I mean to make this
-        a bit clevererer by having the array recycle itself instead of just getting bigger and bigger. The game does have the word
-        forever in the title after all.
-    </p>
-    <p>
-        Phaser draws sprites/groups in the order that they're added to the game, so I managed to make the grass appear in front
-        of the player, but I think I'm going to abaondon clever draw orders for now and concentrate on getting the basics in place.
-        In case you hadn't noticed, it's not a game yet rather than a highly complex way of drawing pictures on a web page
-        that took ages.
+        Javascript Intellisense in Visual studio
+        <a href="https://connect.microsoft.com/VisualStudio/feedbackdetail/view/974804/javascript-intellisense-inconsistent-behaviour">only</a>
+        <a href="http://www.html5gamedevs.com/topic/9261-javascript-intellisense-in-visual-studio-2013-for-web-only-partially-working/">partially</a>
+        <a href="http://stackoverflow.com/questions/25855938/javascript-intellisense-in-visual-studio-only-partially-working">works</a>.
     </p>
 </body>
 </html>

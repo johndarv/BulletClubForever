@@ -13,7 +13,9 @@
     this.cursorKeys = null;
 
     this.jumpWasReleaseSinceLastPressed = false;
-}
+
+    this.totalDistance = 0;
+};
 
 Player.prototype.preload = function () {
     this.game.load.image('player', 'Sprites/player.png');
@@ -21,6 +23,7 @@ Player.prototype.preload = function () {
 
 Player.prototype.create = function () {
     this.playerSprite = this.game.add.sprite(0, 445, 'player');
+    //activeObjects.add(this.playerSprite);
 
     this.game.physics.arcade.enable(this.playerSprite);
     this.playerSprite.body.collideWorldBounds = true;
@@ -41,10 +44,7 @@ Player.prototype.update = function (platforms) {
     var self = this;
 
     // Collisions section
-    // TODO: can just pass the group into the collide() method
-    platforms.group.forEach(function (platform) {
-        self.game.physics.arcade.collide(self.playerSprite, platform);
-    });
+    self.game.physics.arcade.collide(self.playerSprite, platforms.group);
 
     // Movement Section
     // Next set the new values according to player input
@@ -72,9 +72,12 @@ Player.prototype.update = function (platforms) {
     if (!this.keyboard.isDown(Phaser.Keyboard.X)) {
         this.jumpWasReleaseSinceLastPressed = true;
     }
+
+    this.totalDistance += this.playerSprite.body.deltaX();
 };
 
 Player.prototype.render = function () {
-    this.game.debug.bodyInfo(this.playerSprite);
+    this.game.debug.bodyInfo(this.playerSprite, 32, 32);
     this.game.debug.body(this.playerSprite);
-}
+    this.game.debug.text('Total Distance: ' + this.totalDistance.toString(), 32, 136);
+};
