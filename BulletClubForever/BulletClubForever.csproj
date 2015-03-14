@@ -139,7 +139,12 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>type "$(ProjectDir)GameScripts\*.js" | "$(ProjectDir)Tools\jsmin.exe" &gt; "$(ProjectDir)GameScripts\bcf.min.js"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>del "$(ProjectDir)GameScripts\bcf.min.js"
+type "$(ProjectDir)GameScripts\*.js" | "$(ProjectDir)Tools\jsmin.exe" &gt; "$(ProjectDir)GameScripts\bcf.min.js"</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

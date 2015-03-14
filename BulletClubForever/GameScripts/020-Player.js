@@ -14,7 +14,7 @@
 
     this.jumpWasReleaseSinceLastPressed = false;
 
-    this.totalDistance = 0;
+    this.previousDistance = 0;
 };
 
 Player.prototype.preload = function () {
@@ -73,11 +73,6 @@ Player.prototype.update = function (platforms) {
         this.jumpWasReleaseSinceLastPressed = true;
     }
 
-    this.totalDistance += this.playerSprite.body.deltaX();
-};
-
-Player.prototype.render = function () {
-    this.game.debug.bodyInfo(this.playerSprite, 32, 32);
-    this.game.debug.body(this.playerSprite);
-    this.game.debug.text('Total Distance: ' + this.totalDistance.toString(), 32, 136);
+    this.totalDistance += this.playerSprite.x - this.previousDistance;
+    this.previousDistance = this.playerSprite.x;
 };
