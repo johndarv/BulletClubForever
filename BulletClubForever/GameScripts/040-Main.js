@@ -34,7 +34,7 @@ function update() {
 function render() {
     //this.game.debug.text('Scrolling tracker: ' + platforms.scrollingTracker, 432, 32);
     //this.game.debug.text('Player x value: ' + player.playerSprite.x, 32, 64);
-    this.game.debug.text('Number of platforms: ' + platforms.group.length, 432, 64);
+    //this.game.debug.text('Number of platforms: ' + platforms.group.length, 432, 64);
 }
 
 function doScrolling() {

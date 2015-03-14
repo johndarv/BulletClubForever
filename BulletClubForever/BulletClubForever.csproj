@@ -79,7 +79,11 @@
     <Content Include="GameScripts\020-Player.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="GameScripts\bcf.js">
+      <DependentUpon>bcf.js.bundle</DependentUpon>
+    </Content>
     <Content Include="GameScripts\bcf.min.js">
+      <DependentUpon>bcf.js</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="index.html">
@@ -103,7 +107,11 @@
     <Content Include="Tests\LevelMapTests.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Tools\jsmin.exe" />
+    <Content Include="GameScripts\bcf.js.bundle" />
+    <Content Include="GameScripts\bcf.min.js.map">
+      <DependentUpon>bcf.min.js</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="_references.js" />
   </ItemGroup>
   <ItemGroup>
@@ -143,8 +151,8 @@
     </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>del "$(ProjectDir)GameScripts\bcf.min.js"
-type "$(ProjectDir)GameScripts\*.js" | "$(ProjectDir)Tools\jsmin.exe" &gt; "$(ProjectDir)GameScripts\bcf.min.js"</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
