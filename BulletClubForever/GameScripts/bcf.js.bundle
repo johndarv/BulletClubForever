@@ -10,7 +10,7 @@
   </settings>
   <!--The order of the <file> elements determines the order of the files in the bundle.-->
   <files>
-    <file>/GameScripts/010-LevelMap.js</file>
+    <file>/GameScripts/010-Bullets.js</file>
     <file>/GameScripts/020-Player.js</file>
     <file>/GameScripts/030-Platforms.js</file>
     <file>/GameScripts/040-Main.js</file>

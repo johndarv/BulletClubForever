@@ -6,15 +6,20 @@
     this.ACCELLERATION = 300; // pixels per second per second
     this.JUMPSPEED = 400;
     this.GRAVITY = 1200;
+    this.SHOOT_FREQUENCY = 10;
 
     this.playerSprite = null;
 
     this.keyboard = null;
     this.cursorKeys = null;
 
+    this.shootDirection = 3;
+
     this.jumpWasReleaseSinceLastPressed = false;
 
     this.previousDistance = 0;
+
+    this.shootingCount = 0;
 };
 
 Player.prototype.preload = function () {
@@ -38,8 +43,9 @@ Player.prototype.create = function () {
     this.cursorKeys = this.keyboard.createCursorKeys();
 };
 
-Player.prototype.update = function (platforms) {
+Player.prototype.update = function (platforms, bullets) {
     /// <param name="platforms" type="Platforms"></param>
+    /// <param name="bullets" type="Bullets"></param>
 
     var self = this;
 
@@ -73,6 +79,51 @@ Player.prototype.update = function (platforms) {
         this.jumpWasReleaseSinceLastPressed = true;
     }
 
+    // Shooting
+    this.setShootDirection();
+
+    if (this.keyboard.isDown(Phaser.Keyboard.Z)) {
+        if (this.shootingCount % 10 === 0) {
+            bullets.shoot(this);
+        }
+
+        this.shootingCount++;
+    }
+    else {
+        this.shootingCount = 0;
+    }
+
     this.totalDistance += this.playerSprite.x - this.previousDistance;
     this.previousDistance = this.playerSprite.x;
+};
+
+Player.prototype.setShootDirection = function () {
+    if (this.keyboard.isDown(Phaser.Keyboard.Z)) {
+        return;
+    }
+
+    if (this.cursorKeys.right.isDown && this.cursorKeys.up.isDown) {
+        this.shootDirection = 2;
+    }
+    else if (this.cursorKeys.right.isDown && this.cursorKeys.down.isDown) {
+        this.shootDirection = 4;
+    }
+    else if (this.cursorKeys.left.isDown && this.cursorKeys.up.isDown) {
+        this.shootDirection = 8;
+    }
+    else if (this.cursorKeys.left.isDown && this.cursorKeys.down.isDown) {
+        this.shootDirection = 6;
+    }
+    else if (this.cursorKeys.up.isDown) {
+        this.shootDirection = 1;
+    }
+    else if (this.cursorKeys.right.isDown) {
+        this.shootDirection = 3;
+    }
+    else if (this.cursorKeys.down.isDown) {
+        this.shootDirection = 5;
+    }
+    else if (this.cursorKeys.left.isDown) {
+        this.shootDirection = 7;
+    }
 };

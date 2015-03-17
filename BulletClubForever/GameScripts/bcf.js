@@ -1,78 +1,96 @@
-﻿///#source 1 1 /GameScripts/010-LevelMap.js
-LevelMap = function (x, y) {
-    this.map = [];
+﻿///#source 1 1 /GameScripts/010-Bullets.js
+Bullets = function (game) {
+    /// <param name="game" type="Phaser.Game"></param>
+    this.game = game;
+    this.group = null;
+
+    this.SPEED = 3;
+};
+
+Bullets.prototype.preload = function () {
+    this.game.load.image('bullet', 'Sprites/bullet.png');
+};
+
+Bullets.prototype.update = function () {
+    var self = this;
+
+    this.group.forEachAlive(function (bullet) {
+        var direction = self.determineDirectionOfSprite(bullet);
+        bullet.x += direction.x;
+        bullet.y += direction.y;
+
+        // Check collisions
+
+        bullet.x += direction.x;
+        bullet.y += direction.y;
+
+        // Check collisions
+
+        bullet.x += direction.x;
+        bullet.y += direction.y;
+
+        // Check collisions
+    });
+};
+
+Bullets.prototype.create = function () {
+    this.group = this.game.add.group();
+    this.group.enableBody = true;
+};
+
+Bullets.prototype.shoot = function (player) {
+    /// <param name="player" type="Player"></param>
+    
+    var x = player.playerSprite.x;
+    var y = player.playerSprite.y;
+
+    var bullet = this.group.getFirstDead();
+
+    if (bullet != null) {
+        bullet.revive();
+        bullet.x = x;
+        bullet.y = y;
+    }
+    else {
+        bullet = this.group.create(x, y, 'bullet');
+    }
+
+    bullet.body.facing = player.shootDirection;
+    bullet.checkWorldBounds = true;
+    bullet.outOfBoundsKill = true;
+};
+
+Bullets.prototype.determineDirectionOfSprite = function (sprite) {
+    if (sprite.body.facing === 1) {
+        return new Direction(0, -this.SPEED);
+    }
+    else if (sprite.body.facing === 2) {
+        return new Direction(this.SPEED, -this.SPEED);
+    }
+    else if (sprite.body.facing === 3) {
+        return new Direction(this.SPEED, 0);
+    }
+    else if (sprite.body.facing === 4) {
+        return new Direction(this.SPEED, this.SPEED);
+    }
+    else if (sprite.body.facing === 5) {
+        return new Direction(0, this.SPEED);
+    }
+    else if (sprite.body.facing === 6) {
+        return new Direction(-this.SPEED, this.SPEED);
+    }
+    else if (sprite.body.facing === 7) {
+        return new Direction(-this.SPEED, 0);
+    }
+    else if (sprite.body.facing === 8) {
+        return new Direction(-this.SPEED, -this.SPEED);
+    }
+};
+
+Direction = function (x, y) {
     this.x = x;
     this.y = y;
 };
-
-LevelMap.prototype.init = function () {
-    for (var i = 0; i < this.x; i++) {
-        // First, create the array within the array
-        this.map[i] = [];
-
-        for (var j = 0; j < this.y; j++) {
-            this.map[i][j] = ".";
-        }
-    }
-
-    this.initPlatforms();
-    this.overrideFirstPlatform(); // The platform underneath where the player first appears needs to be a piece of ground
-};
-
-LevelMap.prototype.initPlatforms = function () {
-    for (var i = 0; i < this.x; i++) {
-        this.makePieceOfMap(i);
-    }
-};
-
-LevelMap.prototype.overrideFirstPlatform = function () {
-    this.map[0][this.y - 1] = "G";
-};
-
-LevelMap.prototype.addNewPieceOfMap = function () {
-    this.map[this.x] = [];
-    this.makePieceOfMap(this.x);
-    this.x++;
-};
-
-LevelMap.prototype.makePieceOfMap = function (xAxisPos) {
-    var hasGround = !createRandomBool(9);
-    var groundPiece = "."
-
-    // The ground tile
-    if (hasGround) {
-        groundPiece = "G";
-    }
-
-    this.map[xAxisPos][this.y - 1] = groundPiece;
-
-    // Now cycle through all but the ground tiles and randomly create platforms
-    for (var i = 0; i < this.y - 1; i++) {
-        var hasPlatform = createRandomBool(20);
-
-        // Don't ever create tiles for the first two (right at the top of the map)
-        if (i < 2) {
-            hasPlatform = false;
-        }
-
-        var newPiece = ".";
-
-        if (hasPlatform) {
-            newPiece = "P";
-        }
-
-        this.map[xAxisPos][i] = newPiece;
-    }
-};
-
-function createRandom(n) {
-    return Math.floor((Math.random() * n) + 1);
-}
-
-function createRandomBool(n) {
-    var r = createRandom(n);
-    return r === 1;
-}
 ///#source 1 1 /GameScripts/020-Player.js
 Player = function (game) {
     /// <param name="game" type="Phaser.Game"></param>
@@ -82,15 +100,20 @@ Player = function (game) {
     this.ACCELLERATION = 300; // pixels per second per second
     this.JUMPSPEED = 400;
     this.GRAVITY = 1200;
+    this.SHOOT_FREQUENCY = 10;
 
     this.playerSprite = null;
 
     this.keyboard = null;
     this.cursorKeys = null;
 
+    this.shootDirection = 3;
+
     this.jumpWasReleaseSinceLastPressed = false;
 
     this.previousDistance = 0;
+
+    this.shootingCount = 0;
 };
 
 Player.prototype.preload = function () {
@@ -114,8 +137,9 @@ Player.prototype.create = function () {
     this.cursorKeys = this.keyboard.createCursorKeys();
 };
 
-Player.prototype.update = function (platforms) {
+Player.prototype.update = function (platforms, bullets) {
     /// <param name="platforms" type="Platforms"></param>
+    /// <param name="bullets" type="Bullets"></param>
 
     var self = this;
 
@@ -149,8 +173,53 @@ Player.prototype.update = function (platforms) {
         this.jumpWasReleaseSinceLastPressed = true;
     }
 
+    // Shooting
+    this.setShootDirection();
+
+    if (this.keyboard.isDown(Phaser.Keyboard.Z)) {
+        if (this.shootingCount % 10 === 0) {
+            bullets.shoot(this);
+        }
+
+        this.shootingCount++;
+    }
+    else {
+        this.shootingCount = 0;
+    }
+
     this.totalDistance += this.playerSprite.x - this.previousDistance;
     this.previousDistance = this.playerSprite.x;
+};
+
+Player.prototype.setShootDirection = function () {
+    if (this.keyboard.isDown(Phaser.Keyboard.Z)) {
+        return;
+    }
+
+    if (this.cursorKeys.right.isDown && this.cursorKeys.up.isDown) {
+        this.shootDirection = 2;
+    }
+    else if (this.cursorKeys.right.isDown && this.cursorKeys.down.isDown) {
+        this.shootDirection = 4;
+    }
+    else if (this.cursorKeys.left.isDown && this.cursorKeys.up.isDown) {
+        this.shootDirection = 8;
+    }
+    else if (this.cursorKeys.left.isDown && this.cursorKeys.down.isDown) {
+        this.shootDirection = 6;
+    }
+    else if (this.cursorKeys.up.isDown) {
+        this.shootDirection = 1;
+    }
+    else if (this.cursorKeys.right.isDown) {
+        this.shootDirection = 3;
+    }
+    else if (this.cursorKeys.down.isDown) {
+        this.shootDirection = 5;
+    }
+    else if (this.cursorKeys.left.isDown) {
+        this.shootDirection = 7;
+    }
 };
 ///#source 1 1 /GameScripts/030-Platforms.js
 Platforms = function (game) {
@@ -269,10 +338,12 @@ var maxXValueForPlayer = 275;
 var game = new Phaser.Game(WINDOW_WIDTH, WINDOW_HEIGHT, Phaser.AUTO, 'game', { preload: preload, create: create, update: update, render: render });
 
 var platforms = new Platforms(game);
+var bullets = new Bullets(game);
 var player = new Player(game);
 
 function preload() {
     platforms.preload();
+    bullets.preload();
     player.preload();
 }
 
@@ -281,12 +352,14 @@ function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     platforms.create();
+    bullets.create();
     player.create();
 }
 
 function update() {
-    player.update(platforms);
+    player.update(platforms, bullets);
     platforms.update();
+    bullets.update();
 
     doScrolling();
 }
@@ -295,6 +368,8 @@ function render() {
     //this.game.debug.text('Scrolling tracker: ' + platforms.scrollingTracker, 432, 32);
     //this.game.debug.text('Player x value: ' + player.playerSprite.x, 32, 64);
     //this.game.debug.text('Number of platforms: ' + platforms.group.length, 432, 64);
+    this.game.debug.text('Number of bullets: ' + bullets.group.length, 32, 32);
+    this.game.debug.text('Player direction: ' + player.shootDirection, 432, 32);
 }
 
 function doScrolling() {
@@ -311,6 +386,8 @@ function doScrolling() {
         this.platforms.group.forEachAlive(function (platform) {
             platform.x += distanceToActuallyScroll;
         });
+
+        // Update bullets
 
         // Update the tiles array that keeps track of the platforms
         this.platforms.tilesArray.forEach(function (column) {
