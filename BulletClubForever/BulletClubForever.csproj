@@ -67,7 +67,9 @@
     <Content Include="ExternalScripts\qunit-1.15.0.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="GameScripts\010-Bullets.js" />
+    <Content Include="GameScripts\010-Bullets.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="GameScripts\040-Main.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
